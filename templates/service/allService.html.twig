@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AllServicesController!{% endblock %}
+
+{% block body %}
+    <div class="container-fluid" id="allServicesContainer">
+        <table class="table mt-5 table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Description</th>
+                <th scope="col">Vélocité</th>
+                <th scope="col">Prix</th>
+                <th scope="col">Date de création</th>
+                <th scope="col">Operations</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <th>{{service.name}}</th>
+                    <td>{{service.description|slice(0, 50) ~ ' ...'}}</td>
+                    <td>{{service.velocity}}</td>
+                    <td>{{service.price}} €</td>
+                    <td>{{service.time}}</td>
+                    <td>
+                        <a href="{{ path("show_one_service",{id: service.id}) }}"><button type="button" class="btn btn-warning">editer</button></a>
+                        <button type="button" data-url="{{path("delete_service_ajax") }}" data-id="{{ service.id }}" class="btn btn-danger delete"><i class="fas fa-trash"></i> suprimer</button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

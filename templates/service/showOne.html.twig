@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}sérvice{% endblock %}
+
+{% block body %}
+    <div id="showServicesContainer" class="container mt-3">
+        <div class="alert alert-success" role="alert"  style="display: none">
+            Sérvice modifier avec succés !
+        </div>
+        <div class="alert alert-danger" role="alert" style="display: none">
+            Une érreur c'est produite .
+        </div>
+        <form id="form_edit_service" data-url="{{ path('edit_service_ajax') }}">
+            <div class="form-group mb-5">
+                <label for="id">id  :</label>
+                <input class="form-control" id="id" type="text" name="id" value="{{ service.id }}"  required>
+            </div>
+            <div class="form-group mb-5">
+                <label for="name">Nom du sérvice  :</label>
+                <input class="form-control" id="name" type="text" name="name" value="{{ service.name }}"  required>
+            </div>
+            <div class="form-group">
+                <label for="description">Déscription :</label>
+                <textarea  rows="10" class="form-control" id="description" type="text" name="description"  required>{{ service.description }}</textarea>
+            </div>
+            <div class="form-group mt-5">
+                <label for="velocity">Jour de travail :</label>
+                <input style="max-width: 30%" type="number" min="0" class="form-control" id="velocity"  name="velocity" value="{{ service.velocity }}"  required>
+            </div>
+            <div class="form-group mt-5">
+                <label for="price">Prix (€) :</label>
+                <input style="max-width: 30%" type="number"  class="form-control" id="price"  name="price" value="{{ service.price }}"  required>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" id="submit_service" class="btn btn-warning">Modifier</button>
+            </div>
+        </form>
+    </div>
+{% endblock  %}

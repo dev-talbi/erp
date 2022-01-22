@@ -44,7 +44,7 @@ class Services
     private $time;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $price;
 
@@ -52,6 +52,11 @@ class Services
      * @ORM\ManyToMany(targetEntity=Quote::class, mappedBy="services")
      */
     private $quotes;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $velocity;
 
     public function __construct()
     {
@@ -134,6 +139,18 @@ class Services
         if ($this->quotes->removeElement($quote)) {
             $quote->removeService($this);
         }
+
+        return $this;
+    }
+
+    public function getVelocity(): ?float
+    {
+        return $this->velocity;
+    }
+
+    public function setVelocity(float $velocity): self
+    {
+        $this->velocity = $velocity;
 
         return $this;
     }

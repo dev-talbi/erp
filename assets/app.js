@@ -12,6 +12,8 @@ import './styles/app.scss';
 import './styles/global.scss';
 // start the Stimulus application
 import './bootstrap';
-import './js/ajax /addServiceAjax'
+import './js/ajax /sevices/addServiceAjax'
+import './js/ajax /sevices/deleteServiceAjax'
+import './js/ajax /sevices/editService'
 
 import $ from 'jquery';
