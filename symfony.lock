@@ -210,6 +210,9 @@
     "sebastian/version": {
         "version": "3.0.2"
     },
+    "select2/select2": {
+        "version": "4.0.13"
+    },
     "sensio/framework-extra-bundle": {
         "version": "6.2",
         "recipe": {

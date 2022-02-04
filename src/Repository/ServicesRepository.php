@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Services;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Services|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,15 +15,22 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ServicesRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+
+    /**
+     * @var EntityManagerInterface
+     */
+    protected $em;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface  $em)
     {
         parent::__construct($registry, Services::class);
+        $this->em = $em;
     }
 
-    // /**
-    //  * @return Services[] Returns an array of Services objects
-    //  */
-    /*
+     /**
+      * @return Services[] Returns an array of Services objects
+      */
+
     public function findByExampleField($value)
     {
         return $this->createQueryBuilder('s')
@@ -34,9 +42,9 @@ class ServicesRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
 
-    /*
+
+
     public function findOneBySomeField($value): ?Services
     {
         return $this->createQueryBuilder('s')
@@ -46,5 +54,19 @@ class ServicesRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+
+
+    public function findLikeName($name)
+    {
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.name LIKE :name')
+            ->setParameter( 'name', "%$name%")
+            ->orderBy('a.name')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
 }

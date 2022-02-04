@@ -1,0 +1,208 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}sérvice{% endblock %}
+
+{% block body %}
+    <div class="container" id="container_create_quote">
+        <div class="w3-bar w3-black">
+            <button class="w3-bar-item w3-button" onclick="openCity('customer_data')"> <i class="fas fa-user"></i> Client</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('customer_addresse')"> <i class="fas fa-home"></i> Adresse</button>
+            <button class="w3-bar-item w3-button" onclick="openCity('customer_quote')"><i class="fas fa-file-invoice"></i> Devis</button>
+
+        </div>
+        <div>
+            <div class="alert alert-success" role="alert" style="display: none">
+                Devis crée avec succés !
+            </div>
+            <div class="alert alert-danger" role="alert" style="display: none">
+                Une érreur c'est produite .
+            </div>
+        </div>
+        <form id="form_create_quote" data-url="{{ path('create_service_ajax') }}">
+            <div class="city" id="customer_data">
+                <div class="row ">
+                    <h3>Client: </h3>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label for="lastname">Nom :</label>
+                            <input class="form-control" id="lastname" type="text" name="lastname" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="company">Societé :</label>
+                            <input class="form-control" id="company" type="text" name="company" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="phone">telephone :</label>
+                            <input class="form-control" id="phone" type="text" name="phone" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="language">Langue :</label>
+                            <select class="form-select" name="language" id="language">
+                                <option value="">--Merci de choisir une option--</option>
+                                <option value="French">Français</option>
+                                <option value="English">Anglais</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="firstname">Prénom :</label>
+                            <input class="form-control" id="firstname" type="text" name="firstname" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="siret">siret :</label>
+                            <input class="form-control" id="siret" type="text" name="siret" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="email">email :</label>
+                            <input class="form-control" id="email" type="email" name="email" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="city" style="display: none" id="customer_addresse">
+                <div class="row ">
+                    <h3>Adresse: </h3>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label for="street">Rue :</label>
+                            <input class="form-control" id="street" type="text" name="street" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="postale">Code postal :</label>
+                            <input class="form-control" id="postale" type="text" name="postale" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="city">Ville :</label>
+                            <input class="form-control" id="city" type="text" name="city" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="company">Société :</label>
+                            <input class="form-control" id="company" type="text" name="company" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label for="city">Ville :</label>
+                            <input class="form-control" id="city" type="text" name="city" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="country">Pay :</label>
+                            <input class="form-control" id="country" type="text" name="country" required>
+                        </div>
+                        <div class="form-group ">
+                            <label for="company">Société :</label>
+                            <input class="form-control" id="company" type="text" name="company" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="city" style="display: none" id="customer_quote">
+                <div class="row ">
+                    <h3>Devis: </h3>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label for="status">Status :</label>
+                            <input class="form-control" id="status" type="text" name="status" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group ">
+                            <label for="city">Ville :</label>
+                            <input class="form-control" id="city" type="text" name="city" required>
+                        </div>
+                    </div>
+
+
+                    <div class="recipe container_table">
+                        <div class="recipe__ingredients">
+                            <table cellpadding="0" cellspacing="0" border="0" class="recipe-table" id="recipeTable" data-url="{{ path('get_all_data') }}">
+                                <tbody id="recipeTableBody">
+                                <tr>
+                                    <td class="drag-handler"></td>
+                                    <td class="recipe-table__cell">
+                                        <select style="height: 40px" name="select_name" class="select_name recipe__text-field" data-url="{{ path('get_service_ajax') }}">
+                                            <option value="">--Merci de choisir un service--</option>
+                                        </select>
+                                    </td>
+                                    <td class="recipe-table__cell">
+                                        <textarea rows="1" name="description_service" type="text" class="recipe__text-field description"   placeholder="Description"></textarea>
+                                    </td>
+                                    <td class="recipe-table__cell">
+                                        <input name="velocity_service" type="text" class="recipe__text-field form-control velocity"  placeholder="Vélocité (jours)">
+                                    </td>
+                                    <td class="recipe-table__cell">
+                                        <input name="price" type="text" class="recipe__text-field form-control price"  placeholder="Prix">
+                                    </td>
+                                    <td class="recipe-table__cell">
+                                        <input name="id_service" type="text" class="recipe__text-field form-control id"  placeholder="id" hidden>
+                                    </td>
+                                    <td class="recipe-table__cell">
+                                        <button class="recipe-table__del-row-btn unchain_button"><i class="fas fa-unlink"></i></button>
+                                        <button class="recipe-table__del-row-btn">x</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="recipe-table__add-row">
+                                <span class="recipe-table__add-row-btn">+</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script id="rowTemplate" type="text/template">
+                        <tr>
+                            <td class="drag-handler"></td>
+                            <td class="recipe-table__cell">
+                                <select style="height: 40px" name="select_name" class="select_name recipe__text-field" data-url="{{ path('get_service_ajax') }}">
+                                    <option value="">--Merci de choisir un service--</option>
+                                </select>
+                            </td>
+                            <td class="recipe-table__cell">
+                                <textarea rows="1" name="description_service" type="text" class="recipe__text-field description "  placeholder="Description"></textarea>
+                            </td>
+                            <td class="recipe-table__cell">
+                                <input name="velocity_service" type="text" class="recipe__text-field form-control velocity"  placeholder="Vélocité (jours)">
+                            </td>
+                            <td class="recipe-table__cell">
+                                <input name="price" type="text" class="recipe__text-field form-control price"  placeholder="Prix">
+                            </td>
+                            <td class="recipe-table__cell">
+                                <input name="id_service" type="text" class="recipe__text-field form-control id"  placeholder="id" hidden>
+                            </td>
+                            <td class="recipe-table__cell">
+                                <button class="recipe-table__del-row-btn unchain_button"><i class="fas fa-unlink"></i></button>
+                                <button class="recipe-table__del-row-btn">x</button>
+                            </td>
+                        </tr>
+                    </script>
+                    <div class="col-6">
+                        <label for="discount">Réduction :</label>
+                        <input class="form-control" id="discount" type="text" value="0" name="discount" required>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group ">
+                            <label for="total">Total :</label>
+                            <input class="form-control" id="total" type="text" name="total" required>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center mt-3 align-items-center">
+                        <button type="button" class="btn btn-primary">Valider</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function openCity(cityName) {
+            let i;
+            let x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(cityName).style.display = "block";
+        }
+    </script>
+{% endblock %}
