@@ -101,15 +101,21 @@
                             <label for="status">Status :</label>
                             <input class="form-control" id="status" type="text" name="status" required>
                         </div>
+                        <div class="form-group">
+                            <label for="discount">Réduction :</label>
+                            <input class="form-control" id="discount" type="text" value="0" name="discount" required>
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label for="deposit">avance :</label>
                             <input class="form-control" value="0" id="deposit" type="number" name="deposit" required>
                         </div>
+                        <div class="form-group ">
+                            <label for="total">Total :</label>
+                            <input class="form-control" id="total" type="text" name="total" required>
+                        </div>
                     </div>
-
-
                     <div class="recipe container_table w-100">
                         <div class="recipe__ingredients w-100">
                             <table cellpadding="0" cellspacing="0" border="0" class="recipe-table" id="recipeTable" data-url="{{ path('get_all_data') }}">
@@ -170,16 +176,6 @@
                             </td>
                         </tr>
                     </script>
-                    <div class="col-6">
-                        <label for="discount">Réduction :</label>
-                        <input class="form-control" id="discount" type="text" value="0" name="discount" required>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group ">
-                            <label for="total">Total :</label>
-                            <input class="form-control" id="total" type="text" name="total" required>
-                        </div>
-                    </div>
                     <div class="d-flex justify-content-center mt-3 align-items-center">
                         <button type="button" data-url="{{ path('create_quote_ajax') }}" id="submit_quote" class="btn btn-primary">Valider</button>
                     </div>

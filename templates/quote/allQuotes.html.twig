@@ -30,8 +30,8 @@
                     <td>{{ quote.client.company }}</td>
                     <td></td>
                     <td>
-                        <a href=""><button type="button" class="btn btn-warning">editer</button></a>
-                        <button type="button" data-url="" data-id="{{ quote.id }}" class="btn btn-danger delete"><i class="fas fa-trash"></i> suprimer</button>
+                        <a href="{{ path("show_one_quote",{id: quote.id}) }}"><button type="button" class="btn btn-warning">editer</button></a>
+                        {#<button type="button" data-url="" data-id="{{ quote.id }}" class="btn btn-danger delete"><i class="fas fa-trash"></i> suprimer</button>#}
                     </td>
                 </tr>
             {% endfor %}
