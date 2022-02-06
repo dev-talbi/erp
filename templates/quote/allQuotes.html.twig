@@ -14,25 +14,26 @@
             <thead>
             <tr>
                 <th scope="col">Date de création</th>
-                <th scope="col">status</th>
-                <th scope="col">client</th>
+                <th scope="col">Status</th>
+                <th scope="col">Nom client</th>
+                <th scope="col">Entreprise</th>
                 <th scope="col">Montant</th>
+                <th scope="col">Operations</th>
             </tr>
             </thead>
             <tbody>
             {% for quote in quotes %}
-                {{ dump(quote.getClient) }}
-{#                <tr>
-                    <th>{{service.name}}</th>
-                    <td>{{service.description|slice(0, 50) ~ ' ...'}}</td>
-                    <td>{{service.velocity}}</td>
-                    <td>{{service.price}} €</td>
-                    <td>{{service.time}}</td>
+                <tr>
+                    <th>{{quote.creationDate|date('d-m-Y')}}</th>
+                    <td>{{ quote.status }}</td>
+                    <td>{{ quote.client.lastname }}</td>
+                    <td>{{ quote.client.company }}</td>
+                    <td></td>
                     <td>
-                        <a href="{{ path("show_one_service",{id: service.id}) }}"><button type="button" class="btn btn-warning">editer</button></a>
-                        <button type="button" data-url="{{path("delete_service_ajax") }}" data-id="{{ service.id }}" class="btn btn-danger delete"><i class="fas fa-trash"></i> suprimer</button>
+                        <a href=""><button type="button" class="btn btn-warning">editer</button></a>
+                        <button type="button" data-url="" data-id="{{ quote.id }}" class="btn btn-danger delete"><i class="fas fa-trash"></i> suprimer</button>
                     </td>
-                </tr>#}
+                </tr>
             {% endfor %}
 
             </tbody>

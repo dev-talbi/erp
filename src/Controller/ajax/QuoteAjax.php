@@ -86,6 +86,7 @@ class QuoteAjax extends AbstractController
             $time = new \DateTime();
             $time->format('H:i:s \O\n Y-m-d');
             $entityManager = $this->doctrine->getManager();
+            $serviceRepository = $this->doctrine->getRepository(Services::class);
             if (!empty($client_datas['client_id'])){
                 dd('not empty');
             }else{
@@ -110,8 +111,13 @@ class QuoteAjax extends AbstractController
                 $client->addAddress($addresse);
                 $entityManager->persist($client);
             }
-
             $quote = new Quote();
+            foreach ($serrvice_datas as $service){
+                foreach ($service['id'] as $key => $value){
+                    $addService = $serviceRepository->findOneBy(['id'=>$value]);
+                    $quote->addService($addService);
+                }
+            }
             $quote->setCreationDate($time);
             $quote->setClient($client);
             $quote->setDeposit($clientData['deposit']);

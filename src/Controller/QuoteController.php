@@ -44,4 +44,16 @@ class QuoteController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/show/quote/{id}", name="show_one_quote", methods={"GET","POST"}))
+     */
+    public function show($id): Response
+    {
+        $service = $this->getDoctrine()->getRepository(Quote::class)->find($id);
+        return $this->render('quote/showOne.html.twig', [
+            'controller_name' => 'ShowOneController',
+            'quote' => $service,
+        ]);
+    }
+
 }
