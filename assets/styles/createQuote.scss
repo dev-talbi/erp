@@ -28,9 +28,8 @@
 
 
 
-
-  .recipe {
-    padding: 1em;
+  .recipe-table{
+    width: 100%;
   }
   .recipe__title {
     margin-top: 0;
@@ -150,7 +149,10 @@
   }
 
   .select2-selection--single{
-    width: 277px !important;
+    width: 100% !important;
 
+  }
+  .select2-container--bootstrap{
+    width: 100% !important;
   }
 }

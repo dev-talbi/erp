@@ -14,6 +14,8 @@ if (containerAddservices.length) {
          dataType: "JSON",
          success: function (data) {
             $('.alert-success').show()
+            $('input').val("")
+            $('textarea').val("")
             setTimeout(function() { $(".alert-success").hide(); }, 3000);
          },
          error: function (xhr, desc, err) {

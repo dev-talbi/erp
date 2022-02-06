@@ -1,3 +1,11 @@
 // the ~ allows you to reference things in node_modules
+.btn-success{
+  background-color: #70e374 !important;
+  border-color: #70e374 !important;
+}
+.btn-success:hover{
+  background-color: #5bbb5e !important;
+  border-color: #5bbb5e !important;
+}
 @import "~bootstrap/scss/bootstrap";
 @import "createQuote";
