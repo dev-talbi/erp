@@ -65,9 +65,17 @@ class QuoteAjax extends AbstractController
         $data = $request->get('data');
         try {
             $serviceRepository = $this->doctrine->getRepository(Services::class);
-            $allData = $serviceRepository->findBy(['name'=>$data]);
+            $allData = $serviceRepository->findOneBy(['name'=>$data]);
 
-            return $this->json($allData);
+            $response['id'] = $allData->getId();
+            $response['description'] = $allData->getDescription();
+            $response['price'] = $allData->getPrice();
+            $response['velocity'] = $allData->getVelocity();
+
+
+
+
+            return $this->json($response);
 
         }catch (\Exception $e){
             return new Response(json_encode(["result" => "FALSE", "message" => "Caught exception:" . $e->getMessage() . "~" . $e->getFile() . "~" . $e->getLine() . "~"]));

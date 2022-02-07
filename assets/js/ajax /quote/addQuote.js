@@ -42,7 +42,9 @@ if (containerAddQuote.length) {
             getService()
             updateData()
             total()
+            destroySelect2()
         }, 500)
+
 
     });
 
@@ -60,27 +62,32 @@ if (containerAddQuote.length) {
                     dataType: "JSON",
                     success: function (data) {
                         console.log({data})
-                        const description = data[0].description
-                        const price = data[0].price;
-                        const velocity = data[0].velocity;
-                        const id = data[0].id;
+                        console.log({url})
+                        const description = data.description
+                        const price = data.price;
+                        const velocity = data.velocity;
+                        const id = data.id;
                         input.parent("td").next().children(".description").val(description);
                         input.parent("td").next().next().children(".velocity").val(velocity);
                         input.parent("td").next().next().next().children(".price").val(price);
                         input.parent("td").next().next().next().next().children(".id").val(id);
                     },
                     error: function (xhr, desc, err) {
-                        setTimeout(function () {
-                            $(".alert-danger").hide();
-                        }, 3000);
+                        console.log({err})
+
                     }
                 })
-
-
             })
-
         })
+    }
 
+    function destroySelect2(){
+        $( ".unlock" ).each(function() {
+            $(this).on("click", function(){
+                $(this).parent("td").prev().prev().prev().prev().prev().children(".select_name").select2('destroy');
+                $(this).parent("td").prev().prev().prev().prev().prev().children(".select_name").replaceWith( "<input name='select_name' placeholder='Nom du service' class='select_name form-control'>" );
+            })
+        });
     }
 
     function total(){
@@ -157,7 +164,8 @@ if (containerAddQuote.length) {
 
 
     $(document).ready(function () {
-        updateData()
+        updateData();
+        destroySelect2();
 
         let $tableBody = $('#recipeTableBody');
         let $menu = $('#menu');

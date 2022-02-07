@@ -120,6 +120,25 @@
     color: #fff;
   }
 
+  .unlock {
+    cursor: pointer;
+    display: inline-block;
+    padding: .45em 0.92em;
+    font-size: 1em;
+    line-height: 1.4;
+    border: 1px solid #2b78e8;
+    color: #2b78e8;
+    text-decoration: none;
+    transition: all .3s;
+    text-align: center;
+    background-color: #fff;
+  }
+  .unlock:hover{
+    background: #77b0ff;
+    color: #fff;
+
+  }
+
 
   .drag-handler {
     width: 1.4em;
