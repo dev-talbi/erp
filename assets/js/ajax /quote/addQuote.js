@@ -93,7 +93,8 @@ if (containerAddQuote.length) {
     function total(){
         $( ".price" ).change(function() {
             alert("change")
-            let reductyion = $('#discount').val()
+            const inputReduction = $('#discount').val()
+
             let sum = 0
 
             $(this).each(function(){
