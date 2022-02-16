@@ -5,6 +5,7 @@ const containerAddQuote = $('#container_create_quote');
 
 if (containerAddQuote.length) {
 
+    // get all servie in select2 select 
     function getService() {
         let selectService = $('.select_name');
         let url = selectService.attr("data-url")
@@ -42,7 +43,7 @@ if (containerAddQuote.length) {
             getService()
             updateData()
             total()
-            destroySelect2()
+          /*  destroySelect2()*/
         }, 500)
 
 
@@ -61,8 +62,6 @@ if (containerAddQuote.length) {
                     data: data,
                     dataType: "JSON",
                     success: function (data) {
-                        console.log({data})
-                        console.log({url})
                         const description = data.description
                         const price = data.price;
                         const velocity = data.velocity;
@@ -71,6 +70,7 @@ if (containerAddQuote.length) {
                         input.parent("td").next().next().children(".velocity").val(velocity);
                         input.parent("td").next().next().next().children(".price").val(price);
                         input.parent("td").next().next().next().next().children(".id").val(id);
+                        total()
                     },
                     error: function (xhr, desc, err) {
                         console.log({err})
@@ -81,30 +81,40 @@ if (containerAddQuote.length) {
         })
     }
 
-    function destroySelect2(){
+/*    function destroySelect2(){
         $( ".unlock" ).each(function() {
             $(this).on("click", function(){
-                $(this).parent("td").prev().prev().prev().prev().prev().children(".select_name").select2('destroy');
-                $(this).parent("td").prev().prev().prev().prev().prev().children(".select_name").replaceWith( "<input name='select_name' placeholder='Nom du service' class='select_name form-control'>" );
+                event.preventDefault();
+                if ($(this).hasClass("open")){
+                    $(this).parent("td").prev().prev().prev().prev().prev().children(".select_name").select2('destroy');
+                    $(this).parent("td").prev().prev().prev().prev().prev().children(".select_name").replaceWith( "<input name='select_name' placeholder='Nom du service' class='select_name form-control'>" );
+                    $(this).children().first().removeAttr("data-icon");
+                    $(this).children().first().attr("data-icon", "lock");
+                    $(this).removeClass("open");
+                    $(this).addClass("close");
+                    $(this).hide();
+                }
             })
         });
-    }
+    }*/
 
+    // calculate the total of the quote and put the result in total field
     function total(){
-        $( ".price" ).change(function() {
-            alert("change")
-            const inputReduction = $('#discount').val()
-
-            let sum = 0
-
-            $(this).each(function(){
-                sum += parseFloat($(this).val());
-            });
-            console.log($(this).val())
-            $('#total').val(sum)
+        let sum = 0;
+        let discount = parseFloat($('#discount').val());
+        $('.price').each(function(){
+            sum += parseFloat($(this).val());
         });
+        let total = sum - ((sum * discount)/100)
+        $('#total_price').val(total)
     }
 
+    $("#discount").on("change", function () {
+        total()
+    })
+
+
+    // create the quote in bdd
     $('#submit_quote').click(function (){
         const url = $('#submit_quote').attr('data-url');
             let arrayName = [];
@@ -138,20 +148,18 @@ if (containerAddQuote.length) {
                 }
             });
         const clientData = $('#form_create_quote').serialize();
-        console.log(clientData)
-
         $.ajax({
             url: url,
             type: 'POST',
             data: {formData: clientData, servicesData: services},
             dataType: "JSON",
             success: function (data) {
-                console.log('success')
+                $('.alert-success').show()
+                setTimeout(function() { $(".alert-success").hide(); }, 3000);
             },
             error: function (xhr, desc, err) {
-                setTimeout(function () {
-                    $(".alert-danger").hide();
-                }, 3000);
+                $('.alert-danger').show()
+                setTimeout(function() { $(".alert-danger").hide(); }, 3000);
             }
         })
 
@@ -159,15 +167,9 @@ if (containerAddQuote.length) {
 
     })
 
-
-
-
-
-
     $(document).ready(function () {
         updateData();
-        destroySelect2();
-
+/*        destroySelect2();*/
         let $tableBody = $('#recipeTableBody');
         let $menu = $('#menu');
         $(document).on('click', '.recipe-table__add-row-btn', function (e) {
@@ -177,14 +179,14 @@ if (containerAddQuote.length) {
             return false;
         });
 
-        getService()
-
         $tableBody.on('click', '.recipe-table__del-row-btn', function (e) {
             let $el = $(e.currentTarget);
             let $row = $el.closest('tr');
             $row.remove();
+            total()
             return false;
         });
+
         Sortable.create(
             $tableBody[0],
             {
@@ -196,5 +198,8 @@ if (containerAddQuote.length) {
                 }
             }
         );
+
+        total()
+        getService()
     });
 }

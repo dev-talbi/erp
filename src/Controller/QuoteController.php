@@ -22,6 +22,19 @@ class QuoteController extends AbstractController
     }
 
     /**
+     * @Route("/all/quotes", name="all_quotes")
+     */
+    public function showAll(): Response
+    {
+        $quotes = $this->doctrine->getRepository(Quote::class)->findAll();
+
+        return $this->render('quote/allQuotes.html.twig', [
+            'controller_name' => 'AllServicesController',
+            'quotes'=> $quotes,
+        ]);
+    }
+
+    /**
      * @Route("/add/quote", name="add_quote")
      */
     public function add(): Response
@@ -31,18 +44,6 @@ class QuoteController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/all/quotes", name="all_quotes")
-     */
-    public function delete(): Response
-    {
-        $quotes = $this->doctrine->getRepository(Quote::class)->findAll();
-
-        return $this->render('quote/allQuotes.html.twig', [
-            'controller_name' => 'AllServicesController',
-            'quotes'=> $quotes,
-        ]);
-    }
 
     /**
      * @Route("/show/quote/{id}", name="show_one_quote", methods={"GET","POST"}))

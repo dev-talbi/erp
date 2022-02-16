@@ -89,7 +89,7 @@ class QuoteAjax extends AbstractController
     public function createQuote(Request $request){
         try {
             $data = $request->get('formData');
-            $serrvice_datas = $request->get('servicesData');
+            $service_datas = $request->get('servicesData');
             parse_str($data, $clientData);
             $time = new \DateTime();
             $time->format('H:i:s \O\n Y-m-d');
@@ -120,7 +120,7 @@ class QuoteAjax extends AbstractController
                 $entityManager->persist($client);
             }
             $quote = new Quote();
-            foreach ($serrvice_datas as $service){
+            foreach ($service_datas as $service){
                 foreach ($service['id'] as $key => $value){
                     $addService = $serviceRepository->findOneBy(['id'=>$value]);
                     $quote->addService($addService);
@@ -130,7 +130,76 @@ class QuoteAjax extends AbstractController
             $quote->setClient($client);
             $quote->setDeposit($clientData['deposit']);
             $quote->setStatus('test');
+            $quote->setDiscount($clientData['discount']);
             $entityManager->persist($quote);
+            $entityManager->flush();
+
+            return new Response(json_encode(["success" ]));
+
+
+        }catch (\Exception $e){
+            return new Response(json_encode(["result" => "FALSE", "message" => "Caught exception:" . $e->getMessage() . "~" . $e->getFile() . "~" . $e->getLine() . "~"]));
+        }
+
+    }
+
+    /**
+     * @Route("/edit/quote/ajax", name="edit_quote_ajax",methods={"POST"})
+     */
+    public function editeQuote(Request $request){
+        try {
+            $data = $request->get('formData');
+            $service_datas = $request->get('servicesData');
+
+            parse_str($data, $clientData);
+            $time = new \DateTime();
+            $time->format('H:i:s \O\n Y-m-d');
+            $entityManager = $this->doctrine->getManager();
+            $serviceRepository = $this->doctrine->getRepository(Services::class);
+            $clientRepository = $this->doctrine->getRepository(Client::class);
+            $addresRepository = $this->doctrine->getRepository(Addresses::class);
+            $quoteRepository = $this->doctrine->getRepository(Quote::class);
+            $clientId =  $clientData['client_id'];
+            $client = $clientRepository->findOneBy(['id'=> $clientId]);
+            $addresse = $addresRepository->findOneBy(['client'=>$client]);
+            $quote = $quoteRepository->findOneBy(['id'=>$clientData['quote_id']]);
+            $services = $quote->getServices();
+
+            foreach ($services as $serviceItem ){
+                $quote->removeService($serviceItem);
+                $entityManager->flush();
+            }
+
+            $addresse->setCompany($clientData['company']);
+                $addresse->setCity($clientData['city']);
+                $addresse->setStreet($clientData['street']);
+                $addresse->setPostale($clientData['postale']);
+                $addresse->setCountry($clientData['country']);
+                $addresse->setType('test');
+
+                $client->setLastname($clientData['lastname']);
+                $client->setCompany($clientData['company']);
+                $client->setPhone($clientData['phone']);
+                $client->setLanguage($clientData['language']);
+                $client->setFirstname($clientData['firstname']);
+                $client->setSiret($clientData['siret']);
+                $client->setEmail($clientData['email']);
+                $client->addAddress($addresse);
+
+
+            foreach ($service_datas as $service){
+                foreach ($service['id'] as $key => $value){
+                    $addService = $serviceRepository->findOneBy(['id'=>$value]);
+                    $quote->addService($addService);
+                    $entityManager->persist($quote);
+                    $entityManager->flush();
+                }
+            }
+            $quote->setCreationDate($time);
+            $quote->setClient($client);
+            $quote->setDeposit($clientData['deposit']);
+            $quote->setStatus('test');
+            $quote->setDiscount($clientData['discount']);
             $entityManager->flush();
 
             return new Response(json_encode(["success" ]));

@@ -19,12 +19,14 @@ import './bootstrap'
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 import './styles/global.scss';
-import './js/ajax /sevices/addServiceAjax'
-import './js/ajax /sevices/deleteServiceAjax'
-import './js/ajax /sevices/editService'
-import './js/ajax /quote/addQuote'
 import * as select2 from "select2";
 import "select2/dist/css/select2.css";
 import "select2-bootstrap-theme/dist/select2-bootstrap.css";
+
+import './js/ajax/sevices/addServiceAjax'
+import './js/ajax/sevices/deleteServiceAjax'
+import './js/ajax/sevices/editService'
+import './js/ajax/quote/addQuote'
+import  './js/ajax/quote/editQuote'
 select2($);
 

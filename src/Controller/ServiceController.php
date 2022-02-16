@@ -20,25 +20,25 @@ class ServiceController extends AbstractController
     }
 
     /**
-     * @Route("/addservices", name="addservices")
-     */
-    public function add(): Response
-    {
-        return $this->render('service/addService.html.twig', [
-            'controller_name' => 'ServiceController',
-        ]);
-    }
-
-    /**
      * @Route("/all/services", name="all_services")
      */
-    public function delete(): Response
+    public function showAll(): Response
     {
         $services = $this->doctrine->getRepository(Services::class)->findAll();
 
         return $this->render('service/allService.html.twig', [
             'controller_name' => 'AllServicesController',
             'services'=> $services,
+        ]);
+    }
+
+    /**
+     * @Route("/addservices", name="addservices")
+     */
+    public function add(): Response
+    {
+        return $this->render('service/addService.html.twig', [
+            'controller_name' => 'ServiceController',
         ]);
     }
 

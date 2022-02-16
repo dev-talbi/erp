@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}sérvice{% endblock %}
+{% block title %}Add Quote{% endblock %}
 
 {% block body %}
     <div class="container" id="container_create_quote">
@@ -102,18 +102,24 @@
                             <input class="form-control" id="status" type="text" name="status" required>
                         </div>
                         <div class="form-group">
-                            <label for="discount">Réduction :</label>
-                            <input class="form-control" id="discount" type="text" value="0" name="discount" required>
+                                <label for="discount">Réduction :</label>
+                            <div class="d-flex align-items-center">
+                                <input class="form-control mr-2" id="discount" min="0" type="number" value="0" name="discount" required> <span><i style="color: #007bff" class="fas fa-percent"></i></span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label for="deposit">avance :</label>
-                            <input class="form-control" value="0" id="deposit" type="number" name="deposit" required>
+                            <div class="d-flex align-items-center">
+                                <input class="form-control mr-2" value="0" id="deposit" type="number" name="deposit" required> <span><i  style="color: #007bff" class="fas fa-percent"></i></span>
+                            </div>
                         </div>
                         <div class="form-group ">
-                            <label for="total">Total :</label>
-                            <input class="form-control" id="total" type="text" name="total" required>
+                            <label for="total_price">Total :</label>
+                            <div class="d-flex align-items-center">
+                                <input class="form-control mr-2" id="total_price" type="text" name="total_price" required><span><i  style="color: #007bff" class="fas fa-euro-sign"></i></span>
+                            </div>
                         </div>
                     </div>
                     <div class="recipe container_table w-100">
@@ -134,14 +140,16 @@
                                         <input name="velocity_service" type="text" class="recipe__text-field form-control velocity"  placeholder="Vélocité (jours)">
                                     </td>
                                     <td class="recipe-table__cell">
-                                        <input name="price" type="text" class="recipe__text-field form-control price"  placeholder="Prix">
+                                        <input name="price" type="number" min="0" class="recipe__text-field form-control price" value="0"  placeholder="Prix" readonly>
                                     </td>
                                     <td class="recipe-table__cell">
-                                        <input name="id_service" type="text" class="recipe__text-field form-control id"  placeholder="id" >
+                                        <input name="id_service" type="text" class="recipe__text-field form-control id"  placeholder="id" hidden >
                                     </td>
-                                    <td class="recipe-table__cell">
-                                        <button class="recipe-table__del-row-btn">x</button>
-                                        <button class="unlock"><i class="fas fa-unlock-alt"></i></button>
+                                    <td class="recipe-table__cell d-flex">
+                                        <button class="recipe-table__del-row-btn mr-2">x</button>
+{#
+                                        <button class="unlock open" data-url="{{ path('get_service_ajax') }}"><i class="fas fa-unlock-alt"></i></button>
+#}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -167,18 +175,20 @@
                                 <input name="velocity_service" type="text" class="recipe__text-field form-control velocity"  placeholder="Vélocité (jours)">
                             </td>
                             <td class="recipe-table__cell">
-                                <input name="price" type="text" class="recipe__text-field form-control price"  placeholder="Prix">
+                                <input name="price" type="number"  min="0" class="recipe__text-field form-control price" value="0"  placeholder="Prix" readonly>
                             </td>
                             <td class="recipe-table__cell">
-                                <input name="id_service" type="text" class="recipe__text-field form-control id"  placeholder="id" >
+                                <input name="id_service" type="text" class="recipe__text-field form-control id"  placeholder="id" hidden >
                             </td>
-                            <td class="recipe-table__cell">
-                                <button class="recipe-table__del-row-btn">x</button>
-                                <button class="unlock"><i class="fas fa-unlock-alt"></i></button>
+                            <td class="recipe-table__cell d-flex">
+                                <button class="recipe-table__del-row-btn ">x</button>
+{#
+                                <button class="unlock open" data-url="{{ path('get_service_ajax') }}"><i class="fas fa-lock"></i></button>
+#}
                             </td>
                         </tr>
                     </script>
-                    <div class="d-flex justify-content-center mt-3 align-items-center">
+                    <div class="d-flex justify-content-center mt-3 align-items-center mx-auto">
                         <button type="button" data-url="{{ path('create_quote_ajax') }}" id="submit_quote" class="btn btn-primary">Valider</button>
                     </div>
 

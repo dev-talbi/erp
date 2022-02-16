@@ -24,9 +24,13 @@
                 <h3>Client: </h3>
                 <div class="row ">
                     <div class="col-md-6">
-                        <div class="form-group " hidden>
+                        <div class="form-group " >
                             <label for="client_id">id client :</label>
                             <input class="form-control" value="{{ quote.client.id }}" id="client_id" type="text" name="client_id" required>
+                        </div>
+                        <div class="form-group " hidden>
+                            <label for="quote_id">QuoteId :</label>
+                            <input class="form-control" value="{{ quote.id }}" id="quote_id" type="text" name="quote_id" required>
                         </div>
                         <div class="form-group ">
                             <label for="lastname">Nom :</label>
@@ -110,17 +114,24 @@
                         </div>
                         <div class="form-group">
                             <label for="discount">Réduction :</label>
-                            <input class="form-control"  value="{{ quote.discount }}" id="discount" type="text" value="0" name="discount" required>
+                            <div class="d-flex align-items-center">
+                                <input class="form-control mr-2"  min="0"  id="discount" type="number" value="{{ quote.discount }}" name="discount" required> <span><i style="color: #007bff" class="fas fa-percent"></i></span>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group ">
                             <label for="deposit">avance :</label>
-                            <input class="form-control"  value="{{ quote.deposit }}" value="0" id="deposit" type="number" name="deposit" required>
+                            <div class="d-flex align-items-center">
+                                <input class="form-control mr-2"  value="{{ quote.deposit }}" value="0" id="deposit" type="number" name="deposit" required><span><i style="color: #007bff" class="fas fa-percent"></i></span>
+
+                            </div>
                         </div>
                         <div class="form-group ">
                             <label for="total">Total :</label>
-                            <input class="form-control" id="total" type="text" name="total" required>
+                            <div class="d-flex align-items-center">
+                                <input class="form-control mr-2" id="total_price" type="text" name="total_price" required><span><i  style="color: #007bff" class="fas fa-euro-sign"></i></span>
+                            </div>
                         </div>
                     </div>
 
@@ -133,7 +144,7 @@
                                 <tr>
                                     <td class="drag-handler"></td>
                                     <td class="recipe-table__cell">
-                                        <input name="select_name" value="{{ service.name }}" type="text" class="recipe__text-field form-control velocity"  placeholder="Nom du service">
+                                        <input name="select_name" value="{{ service.name }}" type="text" class="recipe__text-field form-control velocity select_name_show"  placeholder="Nom du service">
                                     </td>
                                     <td class="recipe-table__cell">
                                         <textarea rows="1" name="description_service" type="text" class="recipe__text-field description"   placeholder="Description"> {{ service.description }}</textarea>
@@ -145,7 +156,7 @@
                                         <input name="price" type="text" value="{{ service.price }}" class="recipe__text-field form-control price"  placeholder="Prix">
                                     </td>
                                     <td class="recipe-table__cell">
-                                        <input name="id_service"  type="text" class="recipe__text-field form-control id"  placeholder="id" hidden>
+                                        <input name="id_service"  type="text" class="recipe__text-field form-control id"  value="{{ service.id }}" placeholder="id" >
                                     </td>
                                     <td class="recipe-table__cell">
                                         <button class="recipe-table__del-row-btn">x</button>
@@ -185,8 +196,8 @@
                             </td>
                         </tr>
                     </script>
-                    <div class="d-flex justify-content-center mt-3 align-items-center">
-                        <button type="button" data-url="" id="edit_quote" class="btn btn-primary">Modifier</button>
+                    <div class="d-flex justify-content-center mt-4 mx-auto">
+                        <button type="button" data-url="{{ path('edit_quote_ajax') }}" id="edit_quote" class="btn btn-primary">Modifier</button>
                     </div>
 
                 </div>
