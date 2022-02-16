@@ -48,12 +48,12 @@ if (buttonEdit.length) {
             data: {formData: clientData, servicesData: services},
             dataType: "JSON",
             success: function (data) {
-                console.log('success')
+                $('.alert-success').show()
+                setTimeout(function() { $(".alert-success").hide(); }, 3000);
             },
             error: function (xhr, desc, err) {
-                setTimeout(function () {
-                    $(".alert-danger").hide();
-                }, 3000);
+                $('.alert-danger').show()
+                setTimeout(function() { $(".alert-danger").hide(); }, 3000);
             }
         })
 

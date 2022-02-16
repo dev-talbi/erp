@@ -13,7 +13,7 @@
         </div>
         <div>
             <div class="alert alert-success" role="alert" style="display: none">
-                Devis crée avec succés !
+                Devis modifier avec succés !
             </div>
             <div class="alert alert-danger" role="alert" style="display: none">
                 Une érreur c'est produite .
@@ -155,8 +155,8 @@
                                     <td class="recipe-table__cell">
                                         <input name="price" type="text" value="{{ service.price }}" class="recipe__text-field form-control price"  placeholder="Prix">
                                     </td>
-                                    <td class="recipe-table__cell">
-                                        <input name="id_service"  type="text" class="recipe__text-field form-control id"  value="{{ service.id }}" placeholder="id" >
+                                    <td class="recipe-table__cell" >
+                                        <input name="id_service"  type="text" class="recipe__text-field form-control id"  value="{{ service.id }}" placeholder="id" hidden >
                                     </td>
                                     <td class="recipe-table__cell">
                                         <button class="recipe-table__del-row-btn">x</button>
