@@ -1,4 +1,7 @@
 {
+    "cyve/json-schema-form-bundle": {
+        "version": "1.0.4"
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -88,8 +91,34 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "jane-php/json-schema": {
+        "version": "7.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "7.0",
+            "ref": "96f544c796adaf3dae9ec9dfd7f035bc8243e28c"
+        },
+        "files": [
+            "bin/jane-json-schema-generate",
+            "config/jane/json_schema.php",
+            "config/packages/jane.yaml"
+        ]
+    },
+    "jane-php/json-schema-runtime": {
+        "version": "v7.3.1"
+    },
+    "justinrainbow/json-schema": {
+        "version": "5.2.12"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
+    },
+    "league/uri": {
+        "version": "6.7.2"
+    },
+    "league/uri-interfaces": {
+        "version": "2.3.0"
     },
     "monolog/monolog": {
         "version": "2.3.5"
@@ -111,6 +140,9 @@
     },
     "phenx/php-svg-lib": {
         "version": "0.4.0"
+    },
+    "php-jsonpointer/php-jsonpointer": {
+        "version": "v3.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
@@ -164,6 +196,9 @@
     },
     "psr/event-dispatcher": {
         "version": "1.0.0"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
     },
     "psr/link": {
         "version": "1.0.0"
