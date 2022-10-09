@@ -4,11 +4,11 @@ namespace App\Entity;
 
 use App\Repository\AddressesRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use JsonSerializable;
 /**
  * @ORM\Entity(repositoryClass=AddressesRepository::class)
  */
-class Addresses
+class Addresses implements JsonSerializable
 {
     /**
      * @ORM\Id
@@ -56,6 +56,14 @@ class Addresses
      * @ORM\ManyToOne(targetEntity=Quote::class, inversedBy="addresses")
      */
     private $quote;
+
+    public function jsonSerialize(): array
+    {
+        return array(
+            'id' => $this->id,
+            'street'=> $this->street,
+        );
+    }
 
     public function getId(): ?int
     {
